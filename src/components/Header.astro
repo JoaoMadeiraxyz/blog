@@ -16,6 +16,17 @@ const t = useTranslations(lang);
       <HeaderLink href=`/${lang}/about`>{t("nav.about")}</HeaderLink>
     </div>
     <div class="social-links">
+      {
+        lang === "pt" ? (
+          <a href="/en" title="Change language to English">
+            PT
+          </a>
+        ) : (
+          <a href="/pt" title="Alterar o idioma para português">
+            EN
+          </a>
+        )
+      }
       <a
         href="https://www.linkedin.com/in/joao-victor-madeira/"
         target="_blank"
