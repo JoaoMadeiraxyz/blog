@@ -1,18 +1,28 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import BaseHead from "../../../components/BaseHead.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../../consts";
 import { getCollection } from "astro:content";
-import FormattedDate from "../../components/FormattedDate.astro";
+import FormattedDate from "../../../components/FormattedDate.astro";
+import { getLangFromUrl } from "../../../i18n/utils";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+export async function getStaticPaths() {
+  const langs = ["en", "pt"];
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+
+console.log(lang);
+
+const posts = (await getCollection("blog"))
+  .filter((post) => post.id.startsWith(`${lang}/`)) // Filtra pelo idioma atual
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <style>
@@ -93,7 +103,7 @@ const posts = (await getCollection("blog")).sort(
           {
             posts.map((post) => (
               <li>
-                <a href={`/blog/${post.id}/`}>
+                <a href={`/${lang}/blog/${post.id.replace(`${lang}/`, "")}/`}>
                   <img
                     width={720}
                     height={360}

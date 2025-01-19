@@ -3,10 +3,15 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"a">;
 
+function truncateUrl(url: string) {
+  const parts = url.split("/");
+  console.log(parts);
+  return parts.length >= 3 ? `/${parts[1]}/${parts[2]}` : url;
+}
+
 const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
+const pathname = truncateUrl(Astro.url.pathname);
+const isActive = pathname === href;
 ---
 
 <a href={href} class:list={[className, { active: isActive }]} {...props}>

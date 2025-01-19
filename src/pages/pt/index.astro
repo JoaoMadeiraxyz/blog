@@ -1,0 +1,55 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getLangFromUrl } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>👨‍💻 Olá, Mundo!</h1>
+      <p>
+        Bem vindo ao meu website oficial. Aqui eu estarei publicanto posts e
+        documentando minha progressão como desenvolvedor.
+      </p>
+      <p>
+        Este website foi desenvolvido utilizado a framework <a
+          href="https://astro.build/"
+          target="_blank">Astro</a
+        > com o template para blogs.
+      </p>
+      <p>
+        Se você quiser me conhecer melhor você pode acessar a página <a
+          href="/en/about">sobre</a
+        >. Ou acessar a página <a href="/blog">blog</a> onde eu estarei publicando
+        posts sobre:
+      </p>
+      <ul>
+        <li>Notas sobre meu trabalho como desenvolvedor web.</li>
+        <li>Notas sobre meus projetos pessoais em programação.</li>
+        <li>Posts sobre programação e engenharia de software.</li>
+        <li>Coisas sobre tecnologia em geral.</li>
+      </ul>
+      <p>
+        Se você quiser você pode entrar em contato comigo em quaquer uma das
+        redes sociais listadas acima ou através do meu email pessoal
+        jaodisc@gmail.com.
+      </p>
+      <p>
+        Eu espero que qualquer um dos meus posts possa ser útil para você, se
+        você tiver quaisquer dicas ou comentários sobre qualquer um dos
+        conteúdos neste website sinta-se livre para entrar em contato.
+      </p>
+    </main>
+    <Footer />
+  </body>
+</html>
